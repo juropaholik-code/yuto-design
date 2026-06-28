@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YUTO Design | Cenník služieb</title>
+<style>
+  :root {
+    --bg: #09090B;
+    --bg2: #0c0c0f;
+    --card: rgba(255,255,255,.03);
+    --border: rgba(139,92,246,.2);
+    --text: #f0f0f0;
+    --muted: #a1a1aa;
+    --accent: #8b5cf6;
+    --accent-h: #a78bfa;
+    --accent2: #7c3aed;
+    --accent3: #a855f7;
+    --radius: 20px;
+    --shadow: 0 20px 50px rgba(0,0,0,.6);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .035;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    z-index: 9999;
+    width: 0%;
+    transition: width .1s linear;
+  }
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .6s ease, visibility .6s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-ring {
+    width: 40px; height: 40px;
+    border: 3px solid rgba(139,92,246,.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .35;
+    animation: float 20s infinite ease-in-out;
+  }
+  .blob-1 { width: 500px; height: 500px; background: #7c3aed; top: -10%; left: -10%; animation-delay: 0s; }
+  .blob-2 { width: 400px; height: 400px; background: #4c1d95; bottom: -10%; right: -10%; animation-delay: -5s; }
+  .blob-3 { width: 300px; height: 300px; background: #a855f7; top: 50%; left: 60%; animation-delay: -10s; }
+  @keyframes float {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    25% { transform: translate(50px, -50px) scale(1.1); }
+    50% { transform: translate(-30px, 30px) scale(.95); }
+    75% { transform: translate(40px, 40px) scale(1.05); }
+  }
+  .mouse-glow {
+    position: fixed;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,.12) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity .3s ease;
+  }
+  header { text-align: center; padding: 8rem 1rem 4rem; position: relative; }
+  header h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientText 6s ease infinite;
+    background-size: 200% 200%;
+  }
+  @keyframes gradientText {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  header p {
+    color: var(--muted);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    letter-spacing: .2px;
+  }
+
+  .section-title {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow);
+    transition: .3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .price-card .btn { margin-top: auto; }
+  .price-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: .3s ease;
+  }
+  .price-card:hover { border-color: var(--accent); transform: translateY(-6px); }
+  .price-card:hover::before { transform: scaleX(1); }
+  .price-card.featured {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(29,185,84,.25);
+  }
+  .price-card.featured::before { transform: scaleX(1); }
+  .price-card h3 { font-size: 1.4rem; margin-bottom: .5rem; }
+  .price-card .price {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -2px;
+    margin: 1rem 0;
+  }
+  .price-card .price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+  .price-card ul { list-style: none; margin: 1.5rem 0; }
+  .price-card ul li { padding: .5rem 0; color: var(--muted); font-size: .95rem; }
+  .price-card ul li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
+  .price-card .btn {
+    display: block;
+    text-align: center;
+    padding: .9rem 2rem;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 700;
+    transition: .3s;
+    border: 2px solid var(--accent);
+  }
+  .price-card .btn:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+  .badge {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: var(--accent);
+    color: #fff;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: .5px;
+  }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .service-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .service-item h4 { font-size: 1rem; }
+  .service-item .price { font-weight: 800; color: var(--accent); white-space: nowrap; }
+
+  .contact-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin: 3rem 0;
+  }
+  .contact-box h2 { font-size: 2rem; margin-bottom: 1rem; }
+  .contact-box p { color: var(--muted); margin-bottom: 2rem; }
+  .contact-box .btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 700;
+    border: 2px solid var(--accent);
+    transition: .3s;
+  }
+  .contact-box .btn:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .85rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem; }
+    .price-card .price { font-size: 2.2rem; }
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all .3s ease;
+    z-index: 999;
+    box-shadow: 0 10px 30px rgba(139,92,246,.4);
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .back-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 15px 40px rgba(139,92,246,.6);
+  }
+  /* Button ripple */
+  .btn {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,.2);
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform .6s ease;
+  }
+  .btn:active::after {
+    transform: scale(4);
+    transition: transform 0s;
+  }
+  /* Glow on hover for cards */
+  .price-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity .4s ease;
+  }
+  .price-card:hover::before { opacity: 1; }
+  /* Service items */
+  .service-item h4 {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .service-item h4::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
+  }
+  @media print {
+    .back-to-top, .mouse-glow, .blobs, #loader, .scroll-progress { display: none !important; }
+  }
+  @media (max-width: 600px) {
+    .container { padding: 0 1rem; }
+    .price-card { padding: 2rem 1.5rem; }
+    header { padding: 6rem 1rem 2rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div id="loader"><div class="loader-ring"></div></div>
+  <div class="blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="mouse-glow" id="mouseGlow"></div>
+  <div class="container">
+  <header>
+    <h1>YUTO <span>Design</span></h1>
+    <p>Moderné webové stránky pre miestne podniky. Rýchle, responzívne, za férové ceny.</p>
+  </header>
+
+  <h2 class="section-title">Ponuka pre vás</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3> Základný Web</h3>
+      <div class="price">149€ <span>/ jednorazovo</span></div>
+      <ul>
+        <li>1–2 stránky (home + kontakt)</li>
+        <li>Responzívny dizajn</li>
+        <li>Základné animácie</li>
+        <li>Kontaktný formulár</li>
+        <li> Dodanie: 3–5 dní</li>
+      </ul>
+      <a href="mailto:juro.paholik@gmail.com?subject=Základný web - otázka" class="btn">Objednať</a>
+    </div>
+
+    <div class="price-card featured">
+      <div class="badge">POPULÁRNE</div>
+      <h3>Kompletný Web</h3>
+      <div class="price">349€ <span>/ jednorazovo</span></div>
+      <ul>
+        <li>5+ sekcií (home, o nás, služby, galéria, kontakt)</li>
+        <li>Responzívny dizajn</li>
+        <li>Pokročilé animácie + efekty</li>
+        <li>Galéria, cenník, hodiny</li>
+        <li> Základné SEO</li>
+        <li> Dodanie: 7–10 dní</li>
+      </ul>
+      <a href="mailto:juro.paholik@gmail.com?subject=Kompletný web - otázka" class="btn">Objednať</a>
+    </div>
+
+    <div class="price-card">
+      <h3>Firemný Package</h3>
+      <div class="price">499€ <span>/ jednorazovo</span></div>
+      <ul>
+        <li>Všetko z "Kompletný Web"</li>
+        <li>1 stránka extra (blog/aktuality)</li>
+        <li>Pokročilé SEO + Google Maps</li>
+        <li> Facebook/Instagram integracia</li>
+        <li>30 dní bezplatná údržba</li>
+        <li> Dodanie: 10–14 dní</li>
+      </ul>
+      <a href="mailto:juro.paholik@gmail.com?subject=Firemný package - otázka" class="btn">Objednať</a>
+    </div>
+  </div>
+
+  <h2 class="section-title">Dodatočné služby</h2>
+  <div class="services-list">
+    <div class="service-item">
+      <h4>Redizajn existujúcej stránky</h4>
+      <div class="price">od 199€</div>
+    </div>
+    <div class="service-item">
+      <h4>Údržba / aktualizácia</h4>
+      <div class="price">49€/mesiac</div>
+    </div>
+    <div class="service-item">
+      <h4>SEO optimalizácia</h4>
+      <div class="price">od 149€</div>
+    </div>
+    <div class="service-item">
+      <h4>Logo / branding</h4>
+      <div class="price">od 199€</div>
+    </div>
+    <div class="service-item">
+      <h4>Kontent tlmočenie</h4>
+      <div class="price">od 99€</div>
+    </div>
+    <div class="service-item">
+      <h4>E-shop základ</h4>
+      <div class="price">od 599€</div>
+    </div>
+    <div class="service-item">
+      <h4>Fotografie pre web</h4>
+      <div class="price">od 149€</div>
+    </div>
+    <div class="service-item">
+      <h4>Hosting + doména (ročne)</h4>
+      <div class="price">od 79€/rok</div>
+    </div>
+  </div>
+
+  <div class="contact-box">
+    <h2>Máte záujem?</h2>
+    <p>Napíšte mi a dohodneme si bezplatnú konzultáciu. Ukážem vám konkrétne riešenie pre váš podnik.</p>
+    <p style="margin-top:1rem;color:var(--muted)">Juraj Paholík<br>juro.paholik@gmail.com<br>0951767527</p>
+    <a href="mailto:juro.paholik@gmail.com?subject=Otázka na webdizajn" class="btn">Kontaktovať</a>
+  </div>
+
+  <footer>
+    © 2026 YUTO Design | Juraj Paholík
+  </footer>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+</div>
+
+<script>
+  // Page loader
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 800);
+  });
+
+  // Scroll progress
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (scrollTop / scrollHeight) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+  });
+
+  // Mouse glow effect
+  const mouseGlow = document.getElementById('mouseGlow');
+  document.addEventListener('mousemove', (e) => {
+    mouseGlow.style.left = e.clientX + 'px';
+    mouseGlow.style.top = e.clientY + 'px';
+  });
+
+  // Intersection Observer for fade-up animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Apply fade-up to cards and sections
+  document.querySelectorAll('.price-card, .service-item, .contact-box, .section-title').forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = `opacity .6s ease ${index * 0.1}s, transform .6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+
+  // Counter animation for prices
+  const animatePrice = (element) => {
+    const text = element.textContent;
+    const match = text.match(/(\d+)/);
+    if (!match) return;
+    
+    const target = parseInt(match[0]);
+    const duration = 2000;
+    const start = performance.now();
+    
+    const update = (currentTime) => {
+      const elapsed = currentTime - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(target * eased);
+      element.textContent = text.replace(/\d+/, current);
+      
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    };
+    
+    requestAnimationFrame(update);
+  };
+
+  // Observe price elements for counter animation
+  const priceObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        animatePrice(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.price').forEach(el => priceObserver.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Back to top button visibility
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
