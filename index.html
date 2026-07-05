@@ -16,8 +16,8 @@
     --accent-h: #a78bfa;
     --accent2: #7c3aed;
     --accent3: #a855f7;
-    --radius: 20px;
-    --shadow: 0 20px 50px rgba(0,0,0,.6);
+    --radius: 1.25rem;
+    --shadow: 0 1.25rem 3.12rem rgba(0,0,0,.6);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -59,33 +59,33 @@
   }
   #loader.hidden { opacity: 0; visibility: hidden; }
   .loader-ring {
-    width: 40px; height: 40px;
+    width: 2.25rem; height: 2.25rem;
     border: 3px solid rgba(139,92,246,.2);
     border-top-color: var(--accent);
     border-radius: 50%;
-    animation: spin .8s linear infinite;
+    animation: spin .7s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
   .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(5rem);
     opacity: .35;
     animation: float 20s infinite ease-in-out;
   }
-  .blob-1 { width: 500px; height: 500px; background: #7c3aed; top: -10%; left: -10%; animation-delay: 0s; }
-  .blob-2 { width: 400px; height: 400px; background: #4c1d95; bottom: -10%; right: -10%; animation-delay: -5s; }
-  .blob-3 { width: 300px; height: 300px; background: #a855f7; top: 50%; left: 60%; animation-delay: -10s; }
+  .blob-1 { width: 31.25rem; height: 31.25rem; background: #7c3aed; top: -10%; left: -10%; animation-delay: 0s; }
+  .blob-2 { width: 25rem; height: 25rem; background: #4c1d95; bottom: -10%; right: -10%; animation-delay: -5s; }
+  .blob-3 { width: 18.75rem; height: 18.75rem; background: #a855f7; top: 50%; left: 60%; animation-delay: -10s; }
   @keyframes float {
     0%, 100% { transform: translate(0,0) scale(1); }
-    25% { transform: translate(50px, -50px) scale(1.1); }
-    50% { transform: translate(-30px, 30px) scale(.95); }
-    75% { transform: translate(40px, 40px) scale(1.05); }
+    25% { transform: translate(3.12rem, -3.12rem) scale(1.1); }
+    50% { transform: translate(-1.88rem, 1.88rem) scale(.95); }
+    75% { transform: translate(2.50rem, 2.50rem) scale(1.05); }
   }
   .mouse-glow {
     position: fixed;
-    width: 600px; height: 600px;
+    width: 37.50rem; height: 37.50rem;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(139,92,246,.12) 0%, transparent 70%);
     transform: translate(-50%, -50%);
@@ -95,30 +95,36 @@
   }
   header { 
     text-align: center; 
-    padding: 6rem 1rem 3rem; 
+    padding: 4rem 1rem 3rem; 
     position: relative;
-    min-height: 70vh;
+    min-height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 50;
   }
-  .hero-content { max-width: 900px; position: relative; z-index: 2; }
+  .hero-content { 
+    max-width: 56.25rem; 
+    position: relative; 
+    z-index: 10;
+    margin: 0 auto;
+  }
   .hero-badge {
     display: inline-block;
     padding: .6rem 1.4rem;
     background: rgba(139,92,246,.12);
     border: 1px solid rgba(139,92,246,.25);
-    border-radius: 999px;
+    border-radius: 62.44rem;
     margin-bottom: 2rem;
     font-size: .85rem;
     color: var(--accent-h);
     letter-spacing: .3px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(0.62rem);
   }
   header h1 {
     font-size: clamp(2.6rem, 8vw, 5.5rem);
     font-weight: 900;
-    letter-spacing: -2.5px;
+    letter-spacing: -2.0.31rem;
     line-height: 1.05;
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 40%, #8b5cf6 100%);
@@ -131,7 +137,7 @@
   header p {
     color: var(--muted);
     font-size: clamp(1rem, 2.5vw, 1.2rem);
-    max-width: 650px;
+    max-width: 40.62rem;
     margin: 0 auto 2.5rem;
     line-height: 1.7;
     letter-spacing: .2px;
@@ -150,7 +156,7 @@
     flex-wrap: wrap;
     color: var(--muted);
     font-size: .85rem;
-    letter-spacing: .4px;
+    letter-spacing: .0.25rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(139,92,246,.1);
   }
@@ -159,14 +165,7 @@
     text-align: center;
     margin: 7rem 0 3rem;
     font-size: clamp(1.3rem, 3vw, 1.8rem);
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text);
     position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
   }
   .section-title::after {
     content: '';
@@ -174,7 +173,7 @@
     bottom: -.8rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
+    width: 3.12rem;
     height: 3px;
     background: linear-gradient(90deg, var(--accent), var(--accent3));
     border-radius: 3px;
@@ -184,12 +183,16 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 2rem;
     margin-bottom: 5rem;
     padding: 0 1rem;
-    max-width: 1200px;
+    max-width: 75rem;
     margin-left: auto;
     margin-right: auto;
+  }
+  .pricing-grid--top {
+    margin-top: 1rem;
   }
   .price-card {
     background: var(--card);
@@ -202,65 +205,18 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    width: 340px;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-  .pricing-grid .price-card {
-    width: 340px;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-  .price-card .btn { margin-top: auto; }
-  .price-card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 4px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: .3s ease;
-  }
-  .price-card:hover { border-color: var(--accent); transform: translateY(-6px); }
-  .price-card:hover::before { transform: scaleX(1); }
-  .price-card.featured {
-    border-color: var(--accent);
-    box-shadow: 0 0 40px rgba(139,92,246,.35), 0 25px 50px rgba(139,92,246,.2);
-  }
-  .price-card.featured::before { transform: scaleX(1); }
-  .price-card h3 { font-size: 1.4rem; margin-bottom: .5rem; }
-  .price-card .price {
-    font-size: 3rem;
-    font-weight: 900;
-    color: var(--accent);
-    letter-spacing: -2px;
-    margin: 1rem 0;
-  }
-  .price-card .price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
-  .price-card ul { list-style: none; margin: 1.5rem 0; }
-  .price-card ul li { padding: .5rem 0; color: var(--muted); font-size: .95rem; }
-  .price-card ul li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
-  .price-card .btn {
-    display: block;
+    align-items: center;
     text-align: center;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: #fff;
-    text-decoration: none;
-    border-radius: 999px;
-    font-weight: 700;
-    transition: all .3s cubic-bezier(.4,0,.2,1);
-    border: none;
-    position: relative;
-    overflow: hidden;
-    letter-spacing: .2px;
+    flex: 0 1 21.25rem;
+    max-width: 100%;
+    gap: .5rem;
   }
-  .price-card .btn:hover {
-    background: linear-gradient(135deg, var(--accent-h), var(--accent));
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(139,92,246,.5);
-  }
+  .price-card h3 { margin: 0; font-size: clamp(0.9rem, 2vw, 1.4rem); }
+  .price-card .price { margin: .5rem 0; }
+  .price-card ul { margin: .75rem 0; padding-left: 0; list-style: none; }
+  .price-card ul li { padding: .4rem 0; color: var(--muted); font-size: .95rem; }
+  .price-card ul li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
+  .price-card .btn { margin-top: auto; align-self: stretch; }
   .btn {
     position: relative;
     display: inline-block;
@@ -268,7 +224,7 @@
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff;
     text-decoration: none;
-    border-radius: 999px;
+    border-radius: 62.44rem;
     font-weight: 700;
     font-size: .95rem;
     letter-spacing: .2px;
@@ -292,7 +248,7 @@
   }
   .btn:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(139,92,246,.6);
+    box-shadow: 0 0.94rem 2.50rem rgba(139,92,246,.6);
   }
   .btn-secondary {
     background: transparent;
@@ -302,7 +258,7 @@
   .btn-secondary:hover {
     background: rgba(139,92,246,.1);
     border-color: var(--accent);
-    box-shadow: 0 10px 30px rgba(139,92,246,.3);
+    box-shadow: 0 0.62rem 1.88rem rgba(139,92,246,.3);
   }
   .badge {
     position: absolute;
@@ -311,9 +267,9 @@
     color: #fff;
     font-size: .75rem;
     padding: .3rem .8rem;
-    border-radius: 999px;
+    border-radius: 62.44rem;
     font-weight: 700;
-    letter-spacing: .5px;
+    letter-spacing: .0.31rem;
   }
 
   .services-list {
@@ -323,7 +279,7 @@
     gap: 1rem;
     margin-bottom: 3rem;
     padding: 0 1rem;
-    max-width: 1000px;
+    max-width: 62.50rem;
     margin-left: auto;
     margin-right: auto;
   }
@@ -336,12 +292,52 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    width: 300px;
+    flex: 0 1 18.75rem;
     max-width: 100%;
     margin: 0 auto;
   }
-  .service-item h4 { font-size: 1rem; }
+  .service-item h4 { font-size: clamp(0.9rem, 2vw, 1rem); }
   .service-item .price { font-weight: 800; color: var(--accent); white-space: nowrap; }
+
+  .centered-card {
+    text-align: center;
+    backdrop-filter: blur(1.25rem);
+  }
+  .centered-card .process-icon {
+    font-size: clamp(0.9rem, 2vw, 2rem);
+    margin-bottom: .75rem;
+  }
+  .centered-card h4 {
+    margin-bottom: .5rem;
+    letter-spacing: -.2px;
+  }
+  .centered-card p {
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.6;
+  }
+
+  .faq-list {
+    max-width: 50rem;
+    margin: 0 auto 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .faq-item {
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    backdrop-filter: blur(1.25rem);
+  }
+  .faq-item summary {
+    font-weight: 600;
+    letter-spacing: -.2px;
+  }
+  .faq-item p {
+    color: var(--muted);
+    margin-top: .75rem;
+    line-height: 1.6;
+  }
 
   .process-grid {
     display: flex;
@@ -350,16 +346,16 @@
     gap: 1.5rem;
     margin-bottom: 6rem;
     padding: 0 1rem;
-    max-width: 1100px;
+    max-width: 68.75rem;
     margin-left: auto;
     margin-right: auto;
   }
   .process-card {
     text-align: center;
     padding: 2.5rem 1.5rem;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(1.25rem);
     transition: all .4s cubic-bezier(.4,0,.2,1);
-    width: 260px;
+    flex: 0 1 16.25rem;
     max-width: 100%;
     margin: 0 auto;
     background: var(--card);
@@ -367,13 +363,14 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
+  .process-card h3, .process-card p, .process-card .process-icon { text-align: center; }
   .process-icon {
-    font-size: 2.5rem;
+    font-size: clamp(0.9rem, 2vw, 2.5rem);
     margin-bottom: 1rem;
     filter: grayscale(0);
   }
   .process-card h3 {
-    font-size: 1.15rem;
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
     margin-bottom: .5rem;
     letter-spacing: -.2px;
   }
@@ -390,54 +387,87 @@
     padding: 3rem 2rem;
     text-align: center;
     box-shadow: var(--shadow);
-    margin: 3rem 0;
+    margin: 3rem auto;
+    max-width: 56.25rem;
+    background:
+      radial-gradient(ellipse at center, rgba(139,92,246,.15) 0%, transparent 70%),
+      rgba(255,255,255,.03);
   }
-  .contact-box h2 { font-size: 2rem; margin-bottom: 1rem; }
-  .contact-box p { color: var(--muted); margin-bottom: 2rem; }
-  .contact-box .btn {
+  .contact-box h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    letter-spacing: -1.0.31rem;
+    margin-bottom: 1rem;
+  }
+  .contact-box > p {
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    max-width: 34.38rem;
+    margin: 1rem auto 2.5rem;
+  }
+  .contact-info {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 2;
+  }
+  .btn-primary-strong {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff;
     text-decoration: none;
-    border-radius: 999px;
+    border-radius: 62.44rem;
     font-weight: 700;
-    border: 2px solid var(--accent);
-    transition: .3s;
+    border: 2px solid transparent;
+    transform: scale(1.08);
+    box-shadow: 0 1.25rem 3.12rem rgba(139,92,246,.5);
+    transition: all .3s cubic-bezier(.4,0,.2,1);
   }
-  .contact-box .btn:hover {
-    background: transparent;
-    color: var(--accent);
+  .btn-primary-strong:hover {
+    transform: scale(1.12);
+    box-shadow: 0 0.94rem 2.19rem rgba(139,92,246,.6);
   }
 
+  .footer-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    font-size: .9rem;
+    color: var(--muted);
+  }
   footer {
+    margin-top: 6rem;
+    padding: 3rem 1rem 2rem;
     text-align: center;
+    border-top: 1px solid rgba(139,92,246,.15);
+  }
+  footer p {
     color: var(--muted);
     font-size: .85rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-    margin-top: 3rem;
+  }
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 37.50rem) {
     body { padding: 1rem; }
-    .price-card .price { font-size: 2.2rem; }
+    .price-card .price { font-size: clamp(0.9rem, 2vw, 2.2rem); }
   .back-to-top {
     position: fixed;
     bottom: 2rem; right: 2rem;
-    width: 48px; height: 48px;
+    width: 3rem; height: 3rem;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff;
     border: none;
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 2vw, 1.5rem);
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
+    transform: translateY(1.25rem);
     transition: all .3s ease;
     z-index: 999;
-    box-shadow: 0 10px 30px rgba(139,92,246,.4);
+    box-shadow: 0 0.62rem 1.88rem rgba(139,92,246,.4);
   }
   .back-to-top.visible {
     opacity: 1;
@@ -445,8 +475,8 @@
     transform: translateY(0);
   }
   .back-to-top:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 15px 40px rgba(139,92,246,.6);
+    transform: translateY(-0.31rem) scale(1.1);
+    box-shadow: 0 0.94rem 2.50rem rgba(139,92,246,.6);
   }
   /* Button ripple */
   .btn {
@@ -485,12 +515,12 @@
   }
   .service-item h4::before {
     content: '';
-    width: 8px; height: 8px;
+    width: 0.50rem; height: 0.50rem;
     background: var(--accent);
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent);
+    box-shadow: 0 0 0.62rem var(--accent);
   }
-  @media (max-width: 768px) {
+  @media (max-width: 48rem) {
     .pricing-grid,
     .services-list,
     .process-grid {
@@ -500,7 +530,7 @@
     gap: 1.5rem;
     margin-bottom: 6rem;
     padding: 0 1rem;
-    max-width: 1100px;
+    max-width: 68.75rem;
     margin-left: auto;
     margin-right: auto;
   }
@@ -573,16 +603,16 @@
   </div>
 
   <h2 class="section-title" id="pricing">Cenník</h2>
-  <div class="pricing-grid" style="margin-top: 1rem;">
+  <div class="pricing-grid pricing-grid--top">
     <div class="price-card">
-      <h3> Základný Web</h3>
+      <h3>Základný Web</h3>
       <div class="price">149€ <span>/ jednorazovo</span></div>
       <ul>
         <li>1–2 stránky (home + kontakt)</li>
         <li>Responzívny dizajn</li>
         <li>Základné animácie</li>
         <li>Kontaktný formulár</li>
-        <li> Dodanie: 3–5 dní</li>
+        <li>Dodanie: 3–5 dní</li>
       </ul>
       <a href="mailto:juro.paholik@gmail.com?subject=Základný web - otázka" class="btn">Objednať</a>
     </div>
@@ -596,8 +626,8 @@
         <li>Responzívny dizajn</li>
         <li>Pokročilé animácie + efekty</li>
         <li>Galéria, cenník, hodiny</li>
-        <li> Základné SEO</li>
-        <li> Dodanie: 7–10 dní</li>
+        <li>Základné SEO</li>
+        <li>Dodanie: 7–10 dní</li>
       </ul>
       <a href="mailto:juro.paholik@gmail.com?subject=Kompletný web - otázka" class="btn">Objednať</a>
     </div>
@@ -609,30 +639,30 @@
         <li>Všetko z "Kompletný Web"</li>
         <li>1 stránka extra (blog/aktuality)</li>
         <li>Pokročilé SEO + Google Maps</li>
-        <li> Facebook/Instagram integracia</li>
+        <li>Facebook/Instagram integracia</li>
         <li>30 dní bezplatná údržba</li>
-        <li> Dodanie: 10–14 dní</li>
+        <li>Dodanie: 10–14 dní</li>
       </ul>
       <a href="mailto:juro.paholik@gmail.com?subject=Firemný package - otázka" class="btn">Objednať</a>
     </div>
   </div>
 
   <h2 class="section-title">Prečo práve YUTO Design</h2>
-  <div class="pricing-grid" style="margin-top: 1rem;">
-    <div class="price-card" style="backdrop-filter: blur(20px); text-align: center;">
-      <div style="font-size: 2rem; margin-bottom: .75rem;">⚡</div>
-      <h4 style="margin-bottom: .5rem; letter-spacing: -.2px;">Rýchlosť</h4>
-      <p style="color: var(--muted); font-size: .9rem; line-height: 1.6;">Naše stránky sa načítajú za pod sekundu. Rýchlosť zvyšuje konverzie a lepšie hodnotí Google.</p>
+  <div class="pricing-grid">
+    <div class="price-card centered-card">
+      <div class="process-icon">⚡</div>
+      <h4>Rýchlosť</h4>
+      <p>Naše stránky sa načítajú za pod sekundu. Rýchlosť zvyšuje konverzie a lepšie hodnotí Google.</p>
     </div>
-    <div class="price-card" style="backdrop-filter: blur(20px); text-align: center;">
-      <div style="font-size: 2rem; margin-bottom: .75rem;">🎯</div>
-      <h4 style="margin-bottom: .5rem; letter-spacing: -.2px;">Konverzie</h4>
-      <p style="color: var(--muted); font-size: .9rem; line-height: 1.6;">Dizajn je optimalizovaný na získanie kontaktov a telefonátov — nie len na to, aby sa dal prezerať.</p>
+    <div class="price-card centered-card">
+      <div class="process-icon">🎯</div>
+      <h4>Konverzie</h4>
+      <p>Dizajn je optimalizovaný na získanie kontaktov a telefonátov — nie len na to, aby sa dal prezerať.</p>
     </div>
-    <div class="price-card" style="backdrop-filter: blur(20px); text-align: center;">
-      <div style="font-size: 2rem; margin-bottom: .75rem;">💎</div>
-      <h4 style="margin-bottom: .5rem; letter-spacing: -.2px;">Kvalita</h4>
-      <p style="color: var(--muted); font-size: .9rem; line-height: 1.6;">Používam moderné technológie, čistý kód a testede User Experience podľa najnovších trendov.</p>
+    <div class="price-card centered-card">
+      <div class="process-icon">💎</div>
+      <h4>Kvalita</h4>
+      <p>Používam moderné technológie, čistý kód a testedy User Experience podľa najnovších trendov.</p>
     </div>
   </div>
 
@@ -673,39 +703,39 @@
   </div>
 
   <h2 class="section-title">Často kladené otázky</h2>
-  <div style="max-width: 800px; margin: 0 auto 4rem; display: flex; flex-direction: column; gap: 1rem;">
-    <details class="price-card" style="padding: 1.5rem 2rem; cursor: pointer; backdrop-filter: blur(20px);">
-      <summary style="font-weight: 600; letter-spacing: -.2px;">Koľko stojí základná stránka?</summary>
-      <p style="color: var(--muted); margin-top: .75rem; line-height: 1.6;"> Základný web (1–2 stránky) stojí 149 €. Cena zahŕňa dizajn, kódovanie, kontaktný formulár a základné animácie. </p>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Koľko stojí základná stránka?</summary>
+      <p>Základný web (1–2 stránky) stojí 149 €. Cena zahŕňa dizajn, kódovanie, kontaktný formulár a základné animácie.</p>
     </details>
-    <details class="price-card" style="padding: 1.5rem 2rem; cursor: pointer; backdrop-filter: blur(20px);">
-      <summary style="font-weight: 600; letter-spacing: -.2px;">Koľko trvá vývoj?</summary>
-      <p style="color: var(--muted); margin-top: .75rem; line-height: 1.6;"> Základ: 3–5 dní. Kompletný: 7–10 dní. Firemný package: 10–14 dní. Rýchlosie záleží na obsahu a feedbacku. </p>
+    <details class="faq-item">
+      <summary>Koľko trvá vývoj?</summary>
+      <p>Základ: 3–5 dní. Kompletný: 7–10 dní. Firemný package: 10–14 dní. Rýchlosť záleží na obsahu a feedbacku.</p>
     </details>
-    <details class="price-card" style="padding: 1.5rem 2rem; cursor: pointer; backdrop-filter: blur(20px);">
-      <summary style="font-weight: 600; letter-spacing: -.2px;">Je možné pridať e-shop?</summary>
-      <p style="color: var(--muted); margin-top: .75rem; line-height: 1.6;"> Áno, základný e-shop stojí od 599 €. Pre väčšie projekty vám pripravím individuálnu ponuku. </p>
+    <details class="faq-item">
+      <summary>Je možné pridať e-shop?</summary>
+      <p>Áno, základný e-shop stojí od 599 €. Pre väčšie projekty vám pripravím individuálnu ponuku.</p>
     </details>
-    <details class="price-card" style="padding: 1.5rem 2rem; cursor: pointer; backdrop-filter: blur(20px);">
-      <summary style="font-weight: 600; letter-spacing: -.2px;">Stačí, ak mám len Facebook stránku?</summary>
-      <p style="color: var(--muted); margin-top: .75rem; line-height: 1.6;"> Facebook je dobrý na začiatok, ale vlastná stránka dáva profesionalitu, kontrolu nad obsahom a lepšiu viditeľnosť na Google. </p>
+    <details class="faq-item">
+      <summary>Stačí, ak mám len Facebook stránku?</summary>
+      <p>Facebook je dobrý na začiatok, ale vlastná stránka dáva profesionalitu, kontrolu nad obsahom a lepšiu viditeľnosť na Google.</p>
     </details>
   </div>
 
-  <div class="contact-box" style="background: radial-gradient(ellipse at center, rgba(139,92,246,.15) 0%, transparent 70%), rgba(255,255,255,.03); border: 1px solid rgba(139,92,246,.3); box-shadow: 0 25px 60px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.08);">
-    <h2 style="font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: -1.5px;">Pripravený získať moderný web?</h2>
-    <p style="font-size: 1.15rem; max-width: 550px; margin: 1rem auto 2.5rem;"> Napíšte mi a dohodneme si bezplatnú konzultáciu. Ozvem sa do 24 hodín. </p>
-    <p class="contact-info" style="font-size: 1rem; line-height: 2;"> Juraj Paholík · juro.paholik@gmail.com · 0951767527 </p>
-    <a href="mailto:juro.paholik@gmail.com?subject=Rezervovať konzultáciu" class="btn" style="transform: scale(1.08); box-shadow: 0 20px 50px rgba(139,92,246,.5);">Rezervovať konzultáciu</a>
+  <div class="contact-box">
+    <h2>Pripravený získať moderný web?</h2>
+    <p>Napíšte mi a dohodneme si bezplatnú konzultáciu. Ozvem sa do 24 hodín.</p>
+    <p class="contact-info">Juraj Paholík · juro.paholik@gmail.com · 0951767527</p>
+    <a href="mailto:juro.paholik@gmail.com?subject=Rezervovať konzultáciu" class="btn btn-primary-strong">Rezervovať konzultáciu</a>
   </div>
 
-  <footer style="border-top: 1px solid rgba(139,92,246,.15); padding: 3rem 1rem 2rem; text-align: center; margin-top: 5rem;">
-    <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 2rem; font-size: .9rem; color: var(--muted);">
+  <footer>
+    <div class="footer-stats">
       <span>15+ dokončených projektov</span>
       <span>100% zákazníkov spokojných</span>
       <span>3+ rokov skúseností</span>
     </div>
-    <p style="color: var(--muted); font-size: .85rem;"> © 2026 YUTO Design | Juraj Paholík · <a href="mailto:juro.paholik@gmail.com" style="color: var(--accent); text-decoration: none;">juro.paholik@gmail.com</a> </p>
+    <p>© 2026 YUTO Design | Juraj Paholík · <a href="mailto:juro.paholik@gmail.com">juro.paholik@gmail.com</a></p>
   </footer>
   <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 </div>
@@ -713,9 +743,9 @@
 <script>
   // Page loader
   window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.getElementById('loader').classList.add('hidden');
-    }, 800);
+    const el = document.getElementById('loader');
+    if (!el) return;
+    setTimeout(() => { el.classList.add('hidden'); }, 250);
   });
 
   // Scroll progress
@@ -751,8 +781,8 @@
   // Apply fade-up to cards and sections
   document.querySelectorAll('.price-card, .service-item, .contact-box, .section-title').forEach((el, index) => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = `opacity .6s ease ${index * 0.1}s, transform .6s ease ${index * 0.1}s`;
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity .35s ease ${index * 0.04}s, transform .35s ease ${index * 0.04}s`;
     observer.observe(el);
   });
 
@@ -763,7 +793,7 @@
     if (!match) return;
     
     const target = parseInt(match[0]);
-    const duration = 2000;
+    const duration = 1000;
     const start = performance.now();
     
     const update = (currentTime) => {
@@ -807,7 +837,7 @@
   // Back to top button visibility
   const backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
+    if (window.scrollY > 300) {
       backToTop.classList.add('visible');
     } else {
       backToTop.classList.remove('visible');
@@ -817,20 +847,21 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // Card tilt effect on mouse move
+  // Card tilt effect on mouse move — instant, no lag
   document.querySelectorAll('.price-card').forEach(card => {
+    card.style.transition = 'transform 0.08s linear, border-color .3s ease, box-shadow .3s ease';
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = (y - centerY) / 20;
-      const rotateY = (centerX - x) / 20;
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
+      const rotateX = (y - centerY) / 8;
+      const rotateY = (centerX - x) / 8;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
     });
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
     });
   });
 
@@ -843,7 +874,9 @@
       btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
     });
     btn.addEventListener('mouseleave', () => {
-      btn.style.transform = 'translate(0, 0) scale(1)';
+      setTimeout(() => {
+        btn.style.transform = 'translate(0, 0) scale(1)';
+      }, 150);
     });
   });
 </script>
